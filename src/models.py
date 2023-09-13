@@ -1,6 +1,46 @@
 from flask_sqlalchemy import SQLAlchemy
 
+
+
 db = SQLAlchemy()
+
+class Character(db.Model):
+    __tablename__ = 'character'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False)
+    specie = db.Column(db.String(250), nullable=False)
+    genre = db.Column(db.String(250), nullable=False)
+    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
+
+class Starship(db.Model):
+    __tablename__ = 'starship'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = db.Column(db.Integer, primary_key=True)
+    model = db.Column(db.String(250), nullable=False)
+    name = db.Column(db.String(250))
+    image = db.Column(db.String(250))
+
+class Characters_Starships(db.Model):
+    __tablename__ = 'characters_starships'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = db.Column(db.Integer, primary_key=True)
+    character_id = db.Column(db.Integer, db.ForeignKey('character.id'))
+    character = db.relationship(Character)
+    starship_id = db.Column(db.Integer, db.ForeignKey('starship.id'))
+
+class Planet(db.Model):
+    __tablename__ = 'planet'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False)
+    gravity = db.Column(db.Float, nullable=False)
+    population = db.Column(db.Integer, nullable=False)
+    image = db.Column(db.String(250))
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

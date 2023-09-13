@@ -31,6 +31,8 @@ setup_admin(app)
 def handle_invalid_usage(error):
     return jsonify(error.to_dict()), error.status_code
 
+
+
 # generate sitemap with all your endpoints
 @app.route('/')
 def sitemap():
@@ -44,6 +46,41 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@app.route('/character', methods=['GET'])
+def getCharacters():
+    json_text = jsonify('character')
+    return json_text
+
+@app.route('/character/<int:character_id>', methods=['GET'])
+def getCharacterById():
+    json_text = jsonify('character_id')
+    return json_text
+
+@app.route('/starship', methods=['GET'])
+def getStarships():
+    json_text = jsonify('starship')
+    return json_text
+
+@app.route('/starship/<int:starship_id>', methods=['GET'])
+def getStarshipById():
+    json_text = jsonify('starship_id')
+    return json_text
+
+@app.route('/planet', methods=['GET'])
+def getPlanets():
+    json_text = jsonify('planet')
+    return json_text
+
+@app.route('/planet/<int:planet_id>', methods=['GET'])
+def getPlanetById():
+    json_text = jsonify('planet_id')
+    return json_text
+
+@app.route('/characters_starships', methods=['GET'])
+def getCharactersStarships():
+    json_text = jsonify('characters_starships')
+    return json_text
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
