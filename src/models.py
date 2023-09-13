@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class Character(db.Model):
-    __tablename__ = 'character'
+class Characters(db.Model):
+    __tablename__ = 'characters'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = db.Column(db.Integer, primary_key=True)
@@ -14,8 +14,8 @@ class Character(db.Model):
     genre = db.Column(db.String(250), nullable=False)
     planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'))
 
-class Starship(db.Model):
-    __tablename__ = 'starship'
+class Starships(db.Model):
+    __tablename__ = 'starships'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = db.Column(db.Integer, primary_key=True)
@@ -32,8 +32,8 @@ class Characters_Starships(db.Model):
     character = db.relationship(Character)
     starship_id = db.Column(db.Integer, db.ForeignKey('starship.id'))
 
-class Planet(db.Model):
-    __tablename__ = 'planet'
+class Planets(db.Model):
+    __tablename__ = 'planets'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     id = db.Column(db.Integer, primary_key=True)

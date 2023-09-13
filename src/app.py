@@ -47,32 +47,48 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@app.route('/character', methods=['GET'])
+@app.route('/characters', methods=['GET'])
 def getCharacters():
     json_text = jsonify('character')
     return json_text
 
-@app.route('/character/<int:character_id>', methods=['GET'])
+@app.route('/characters/create', methods=['GET', 'POST'])
+def createCharacters():
+    if request.method == "POST":
+        characters = Characters(
+            id = request.get_json(force = True),
+            name = request.get_json(force = True),
+            specie = request.get_json(force = True),
+            genre = request.get_json(force = True),
+            planet_id = request.get_json(force = True)
+        )
+        db.session.add(characters)
+        db.session.commit()
+        return Characters
+
+    return render_template("user/create.html")
+
+@app.route('/characters/<int:character_id>', methods=['GET'])
 def getCharacterById():
     json_text = jsonify('character_id')
     return json_text
 
-@app.route('/starship', methods=['GET'])
+@app.route('/starships', methods=['GET'])
 def getStarships():
     json_text = jsonify('starship')
     return json_text
 
-@app.route('/starship/<int:starship_id>', methods=['GET'])
+@app.route('/starships/<int:starship_id>', methods=['GET'])
 def getStarshipById():
     json_text = jsonify('starship_id')
     return json_text
 
-@app.route('/planet', methods=['GET'])
+@app.route('/planets', methods=['GET'])
 def getPlanets():
     json_text = jsonify('planet')
     return json_text
 
-@app.route('/planet/<int:planet_id>', methods=['GET'])
+@app.route('/planets/<int:planet_id>', methods=['GET'])
 def getPlanetById():
     json_text = jsonify('planet_id')
     return json_text
